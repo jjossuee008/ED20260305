@@ -21,10 +21,12 @@ public class VistaGeneral {
 	
 	public static void mostrarTitulo1(String texto) {
 		System.out.printf("== %s ==",texto.toUpperCase());
+		System.out.println();
 	}
 	
 	public static void mostrarTitulo2(String texto) {
 		System.out.printf("-- %s --",texto);
+		System.out.println();
 	}
 	
 	public static int pedirNúmero(String texto) {
