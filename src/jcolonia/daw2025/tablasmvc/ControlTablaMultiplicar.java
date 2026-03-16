@@ -1,7 +1,6 @@
 package jcolonia.daw2025.tablamultiplicar;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import jcolonia.daw2025.menú.*;
 
@@ -19,6 +18,7 @@ public class ControlTablaMultiplicar {
 	/** Tabla de multiplicar activa. */
 	private TablaMultiplicar tabla;
 	
+	/** Numero de la tabla que se esta usando */
 	private int numeroActivo;
 	
 	/** Lista con los textos de las opciones del menú. */
@@ -28,7 +28,6 @@ public class ControlTablaMultiplicar {
 	    OPCIONES_MENÚ_PRINCIPAL.add("Mostrar tabla activa");
 	    OPCIONES_MENÚ_PRINCIPAL.add("Cambiar tabla (nuevo número)");
 	    OPCIONES_MENÚ_PRINCIPAL.add("Exportar tabla a archivo");
-	    OPCIONES_MENÚ_PRINCIPAL.add("Salir");
 	}
 	
 	/** constructor principal de ControlTablaMultiplicar */
@@ -49,37 +48,31 @@ public class ControlTablaMultiplicar {
 	* Gestión del menú principal. Desde este menú
 	* se ejecutan las opciones disponibles a elección del usuario.
 	* A la salida del menú se finaliza el programa.
-	 * @throws EscepcíonES lanzara un error al no detectar una tabla
 	*/
 	public void buclePrincipal() { 
 	    VistaMenú menú = new VistaMenú("Tablas de multiplicar", OPCIONES_MENÚ_PRINCIPAL);
 	    int opción = -1; 
 	    
 	    do {
-	        try {
-	            menú.mostrarOpciones();
-	            opción = menú.pedirOpción(); 
+	         menú.mostrarOpciones();
+	         opción = menú.pedirOpción(); 
 	            
-	            switch(opción) {
-	                case 1:
-	                	mostrarTabla();
-	                	break;
-	                case 2:
-	                	cambiarTabla();
-	                	break;
-	                case 3:
-	                	exportarTabla();
-	                	break;
-	                case 0: // SALIR
-	                	break;
-	                default:
-	                    opciónNoDisponible();
-	                    break;
+	         switch(opción) {
+	             case 1:
+	               mostrarTabla();
+	         break;
+	             case 2:
+	               cambiarTabla();
+	               break;
+	             case 3:
+	                exportarTabla();
+	                break;
+	             case 0: 
+	                break;
+	             default:
+	                opciónNoDisponible();
+	                break;
 	            }
-	        } catch (EscepcíonES e) {
-	            opciónNoDisponible(); 
-	            VistaGeneral.mostrarAviso(e.getLocalizedMessage());
-	        }
 	    } while (opción != 0);
 	    
 	    VistaGeneral.mostrarAviso("FIN");
@@ -91,11 +84,6 @@ public class ControlTablaMultiplicar {
 	 * @throws EscepcíonES lanzara un error al no detectar una tabla
 	*/
 	private void mostrarTabla() throws EscepcíonES{
-		if(tabla == null) {
-			throw new EscepcíonES("No se ha indicado ninguna tabla");
-		}
-		
-		
 		VistaGeneral.mostrarTitulo1("Tabla del "+ numeroActivo);
 		List<String> lineas;
 		
@@ -111,13 +99,10 @@ public class ControlTablaMultiplicar {
 	private void cambiarTabla(){
 		int n;
 	 
-	    
-	    System.out.println("Introduzca el número para la tabla:");
-	    
-	    Scanner scEntrada = new Scanner(System.in); 
-	    n = scEntrada.nextInt();
+	    VistaGeneral.pedirNúmero("Introduzca el número para la tabla:");
+	    n = VistaGeneral.scEntrada.nextInt();
 	    this.numeroActivo = n;
-	    scEntrada.nextLine();
+	    VistaGeneral.scEntrada.nextLine();
 	    
 	    tabla = new TablaMultiplicar(n);
 	    tabla.generarTabla();

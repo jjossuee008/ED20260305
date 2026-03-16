@@ -58,6 +58,8 @@ public class VistaMenú {
 		for(int a = 0; a < opciones.size(); a++) {
 			System.out.printf("%d) opción %s\n", a + 1, opciones.get(a));
 		}
+		
+		System.out.println("0) Salir");
 	}
 
 	/**

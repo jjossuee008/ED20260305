@@ -35,7 +35,7 @@ public class VistaGeneral {
 		
 		while (!scEntrada.hasNextInt()) {
             mostrarAviso("Por favor, introduce un número válido.");
-            scEntrada.next();
+            scEntrada.nextLine();
         }
         return scEntrada.nextInt();
 	}
@@ -43,7 +43,6 @@ public class VistaGeneral {
 	public static void pausa(String texto) {
 		scEntrada = new Scanner(System.in);
 		mostrarTexto(texto + " (Pulsa Enter para continuar)");
-        scEntrada.nextLine();
         scEntrada.nextLine();
 	}
 	
